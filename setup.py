@@ -14,7 +14,7 @@ from setuptools.command.build_ext import build_ext
 from Cython.Build import cythonize
 
 
-OPENFST_VERSION = "1.7.9"
+OPENFST_VERSION = "1.7.5"
 
 
 def copy(src, dst):
@@ -107,10 +107,10 @@ class OpenFstBuildExt(build_ext):
     @property
     def openfst_deps_libs(self):
         return [
-            "%s/src/extensions/far/.libs/libfstfar.so" % self.openfst_dirname,
-            "%s/src/extensions/far/.libs/libfstfarscript.so" % self.openfst_dirname,
-            "%s/src/script/.libs/libfstscript.so" % self.openfst_dirname,
-            "%s/src/lib/.libs/libfst.so" % self.openfst_dirname,
+            "%s/src/extensions/far/.libs/libfstfar.18.dylib" % self.openfst_dirname,
+            "%s/src/extensions/far/.libs/libfstfarscript.18.dylib" % self.openfst_dirname,
+            "%s/src/script/.libs/libfstscript.18.dylib" % self.openfst_dirname,
+            "%s/src/lib/.libs/libfst.17.dylib" % self.openfst_dirname,
         ]
 
     @property
@@ -224,7 +224,7 @@ class OpenFstBuildExt(build_ext):
         self.openfst_extract()
         self.openfst_configure_and_make()
         self.openfst_copy_libraries(self.extensions[0])
-        self.openfst_fix_libraries()
+        #self.openfst_fix_libraries()
 
         cmd = self.get_finalized_command("build_py").build_lib
         self.write_stub(cmd, self.extensions[0])
